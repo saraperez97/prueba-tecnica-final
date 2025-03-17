@@ -10,6 +10,12 @@ const users = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 const server = http.createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/users") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ users }, null, 2));
+    return;
+  }
+
   if (req.method === "POST") {
     let body = "";
 
@@ -37,10 +43,10 @@ const server = http.createServer((req, res) => {
     });
   } else {
     res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("Not sss Found");
+    res.end("Not Found");
   }
 });
 
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}/users`);
 });
