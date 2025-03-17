@@ -1,0 +1,26 @@
+<form [formGroup]="form" class="container">
+  <mat-card-header class="main-title">
+    <h3 matHeader>Listado de usuarios</h3>
+  </mat-card-header>
+  <div class="justify-between">
+    <mat-form-field appearance="outline" class="mr-3">
+      <mat-label>Buscar</mat-label>
+      <input formControlName="search" matInput placeholder="Buscar..." />
+    </mat-form-field>
+    <button mat-raised-button (click)="fetchUsers()" class="ml-3">Buscar</button>
+  </div>
+</form>
+
+<div *ngFor="let user of paginatedUsers" class="container">
+  <app-target [user]="user"></app-target>
+</div>
+
+<mat-paginator
+  (page)="handlePageEvent($event)"
+  [length]="length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex"
+  aria-label="Select page"
+>
+</mat-paginator>
